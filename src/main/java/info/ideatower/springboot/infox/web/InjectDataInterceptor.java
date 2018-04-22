@@ -76,7 +76,7 @@ public class InjectDataInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        if (!infox.isEmpty() && modelAndView.hasView()) {
+        if (modelAndView != null && modelAndView.hasView() && !infox.isEmpty()) {
             modelAndView.addObject(this.mark, this.infox);
         }
     }
