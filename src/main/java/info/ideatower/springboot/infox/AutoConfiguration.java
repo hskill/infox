@@ -17,10 +17,9 @@ public class AutoConfiguration extends WebMvcConfigurerAdapter {
     public Environment env;
 
     public void addInterceptors(InterceptorRegistry registry) {
-        val mark = env.getProperty("infox.mark", StringUtils.EMPTY);
-        val path = env.getProperty("infox.path", StringUtils.EMPTY);
-
-        registry.addInterceptor(new InjectDataInterceptor(mark, path));
+        Infox.load();
+        val mark = env.getProperty(Infox.DEFAULT_MARK, StringUtils.EMPTY);
+        registry.addInterceptor(new InjectDataInterceptor(mark));
     }
 
 }
