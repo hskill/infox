@@ -9,6 +9,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 在返回视图中，自动注入数据
+ */
 @Slf4j
 public class InjectDataInterceptor extends HandlerInterceptorAdapter {
 
