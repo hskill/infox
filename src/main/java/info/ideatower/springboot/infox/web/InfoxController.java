@@ -1,6 +1,7 @@
-package info.ideatower.springboot.infox;
+package info.ideatower.springboot.infox.web;
 
 import info.ideatower.infra.support.web.http.JsonResult;
+import info.ideatower.springboot.infox.Infox;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,9 @@ public class InfoxController {
 
     @GetMapping("/{resource}")
     public String resource(@PathVariable("resource") String resource) {
-        return JsonResult.ok(Infox.get(resource));
+        if (Infox.getAll().containsKey(resource)) {
+            return JsonResult.ok(Infox.get(resource));
+        }
+        return JsonResult.error("404", "Not Found");
     }
 }

@@ -1,8 +1,10 @@
 package info.ideatower.springboot.infox;
 
+import info.ideatower.springboot.infox.web.InfoxController;
 import info.ideatower.springboot.infox.web.InjectDataInterceptor;
 import lombok.val;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -22,4 +24,8 @@ public class AutoConfiguration extends WebMvcConfigurerAdapter {
         registry.addInterceptor(new InjectDataInterceptor(mark));
     }
 
+    @Bean
+    public InfoxController infoxController() {
+        return new InfoxController();
+    }
 }
