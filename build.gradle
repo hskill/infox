@@ -13,6 +13,13 @@ sourceCompatibility = 1.8
 
 repositories {
     maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+    maven {
+        url "${REPO_URL}"
+        credentials {
+            username "${REPO_USER}"
+            password "${REPO_PASSWORD}"
+        }
+    }
     mavenCentral()
 }
 
@@ -33,6 +40,7 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.7'
     compile 'org.slf4j:slf4j-log4j12:1.7.7'
 
+    compile 'info.ideatower.infra:support:0.1.4-SNAPSHOT'
 
     compile 'org.springframework.boot:spring-boot-starter:1.5.3.RELEASE+'
     compile 'org.springframework.boot:spring-boot-starter-web:1.5.3.RELEASE+'
