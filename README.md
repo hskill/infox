@@ -8,7 +8,7 @@
 
 ```gradle
 repository {
-    maven { url "https://github.com/hskill/maven-repo/raw/repository/snapshots"}
+    maven { url "https://github.com/hskill/maven-repo/raw/repository/snapshots" }
 }
 ```
 
