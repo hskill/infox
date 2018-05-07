@@ -6,7 +6,18 @@
 
 在maven或gradle中加入依赖即可。
 
-==暂无==
+```gradle
+repository {
+    maven { url "https://github.com/hskill/maven-repo/raw/repository/snapshots"}
+}
+```
+
+加载依赖
+```
+dependencies {
+    compile 'info.ideatower.springboot:infox:0.1.0-SNAPSHOT'
+}
+```
 
 将自动的读取项目resources目录下的infox文件夹下的所有以`yml`与`yaml`结尾的数据。
 
