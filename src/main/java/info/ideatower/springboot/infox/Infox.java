@@ -1,7 +1,6 @@
 package info.ideatower.springboot.infox;
 
 import com.google.common.collect.Maps;
-import info.ideatower.springboot.infox.web.InjectDataInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.apache.commons.io.FileUtils;
@@ -32,23 +31,29 @@ public class Infox {
     /**
      * 数据
      */
-    private static final Map<String, Object> CONTAINER = Maps.newConcurrentMap();
+    private static Map<String, Object> CONTAINER;
+
+    public static boolean isLoad() {
+        return CONTAINER != null;
+    }
 
     /**
      * 1. 会先在运行目录下寻找infox文件夹
      * 2. 其次会类路径下寻找infox文件夹
      */
-    protected static void load() {
-        File currentPath = null;
-        File classPath = null;
+    public synchronized static void load() {
+        if (CONTAINER != null) {
+            return;
+        }
+        CONTAINER = Maps.newConcurrentMap();
         try {
-            currentPath = new File(System.getProperty("user.dir") + File.separator + DEFAULT_MARK);
-            classPath = new File(InjectDataInterceptor.class.getClassLoader().getResource(DEFAULT_MARK).toURI());
+            File currentPath = new File(System.getProperty("user.dir") + File.separator + DEFAULT_MARK);
+            File classPath = new File(Infox.class.getClassLoader().getResource(DEFAULT_MARK).toURI());
+
             File infoxPath = null;
             if (currentPath.exists() && currentPath.canRead()) {
                 infoxPath = currentPath;
-            }
-            else if (classPath.exists() && classPath.canRead()) {
+            } else if (classPath.exists() && classPath.canRead()) {
                 infoxPath = classPath;
             }
 
@@ -60,8 +65,7 @@ public class Infox {
                     val itemName = name.substring(0, name.lastIndexOf('.'));
                     CONTAINER.put(itemName, item);
                 }
-            }
-            else {
+            } else {
                 log.debug("在指定的位置找不到infox: {}", currentPath);
                 log.debug("在指定的位置找不到infox: {}", classPath);
             }
